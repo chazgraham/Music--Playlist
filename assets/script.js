@@ -1,7 +1,8 @@
-var userFormEl = document.querySelector("#user-form");
-var nameInputEl = document.querySelector("#user-input");
+var userFormEl = document.querySelector("#form");
+var nameInputEl = document.getElementById("#submitBtn");
 var repoContainerEl = document.querySelector("#list-container");
 var repoSearchTerm = document.querySelector("#music-search-term");
+var clearSearch = document.getElementById("clearBtn");
 
 var formSubmitHandler = function(event) {
   // prevent page from refreshing
@@ -87,5 +88,10 @@ var displayRepos = function(tracks, SearchTerm) {
   }
 };
 
+var resetForm = function () {
+  location.reload()
+}
+
   // add event listeners to form and button container//
   userFormEl.addEventListener("submit", formSubmitHandler);
+  clearSearch.addEventListener("click", resetForm);
