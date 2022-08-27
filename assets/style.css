@@ -1,0 +1,23 @@
+body {
+    background-image: url("../assets/images/wallp.jpeg");
+    background-size: cover;
+    min-height: 100vh;
+}
+
+header {
+    margin-top: 50px;
+}
+
+#form {
+    justify-content: center;
+    align-items: center;
+}
+
+.form {
+    display: flex;
+}
+
+footer{
+    padding: 1rem .5rem 2rem !important;
+}
+
