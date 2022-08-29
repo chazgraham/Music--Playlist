@@ -21,3 +21,12 @@ footer{
     padding: 1rem .5rem 2rem !important;
 }
 
+li {
+margin-left:11px;
+color:black;
+}
+
+li:hover {
+color:blue;
+}
+

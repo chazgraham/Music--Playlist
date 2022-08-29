@@ -33,7 +33,7 @@ console.log(userInputEl);
 var getUserRepos = function(data) {
   // format the api url
   
-    var apiUrl = "https://api.mixcloud.com/search/?q=" + data + "&limit=5&type=cloudcast";
+    var apiUrl = "https://api.mixcloud.com/search/?q=" + data + "&type=cloudcast";
  
 
   // make a get request to url
@@ -78,7 +78,7 @@ var displayRepos = function(data) {
     repoEl.setAttribute("href", "./single-repo.html?repo=" + repoName);
 
     // create a span element to hold repository name
-    var titleEl = document.createElement("li");
+    var titleEl = document.createElement("span");
     titleEl.textContent = repoName;
 
     // append to container
@@ -90,12 +90,7 @@ var displayRepos = function(data) {
     repoContainerEl.appendChild(repoEl);
   }
 };
-var resetForm = function (){
-    location.reload()
-}
-
   // add event listeners to form and button container//
   userFormEl.addEventListener("click", artistName);
-  clearSearch.addEventListener("click", resetForm);
+  //clearSearch.addEventListener("click", resetForm);
   nameInputEl.addEventListener("click", formSubmitHandler);
-
