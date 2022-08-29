@@ -21,3 +21,7 @@ footer{
     padding: 1rem .5rem 2rem !important;
 }
 
+li {
+    margin-left: 10px;
+    color: black;
+}

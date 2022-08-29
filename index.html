@@ -18,7 +18,7 @@
         <section class="hero-body" id="form">
             <div>
                 <div class="form">
-                    <input class="input is-focused is-danger input-is-medium mb-6 mr-6 ml-6"
+                    <input class="input is-focused is-danger input-is-medium mb-6 mr-6 ml-6" id="input-data" name="artist"
                         placeholder="Band/Artist Name" />
                     <button class="button is-focused is-normal has-text-bold is-responsive mr-6 ml-6" type="submit"
                         id="submitBtn">Get Playlist</button>
@@ -27,13 +27,15 @@
             </div>
 
         </section>
+
+        <section class="artistTable" >
+
+        </section>
 <!--this is where playlist will go-->
-        <section class="list-container">
+        <section>
+            <h2 class="subtitle">Playlist<span id="music-search-term"></span></h2>
             <div>
-                <ul class="box field is-vertical is-size-12 mr-6 ml-6">
-                    <li>music</li>
-                    <li>hello</li>
-                </ul>
+                <ol class="box field is-vertical is-size-12 mr-6 ml-6" id="list-container"> </ol>
 
             </div>
         </section>
@@ -47,7 +49,12 @@
           </p>
         </div>
       </footer>
+      <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
+    ></script>
     <script src="./assets/script.js"></script>
 </body>
 
 </html>
+
