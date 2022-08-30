@@ -22,10 +22,11 @@ footer{
 }
 
 li {
-    margin-left: 10px;
-    color: black;
+margin-left:11px;
+color:black;
 }
 
-h2 {
-    margin-left: 20px;
+li:hover {
+color:blue;
 }
+
