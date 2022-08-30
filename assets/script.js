@@ -69,23 +69,22 @@ var displayRepos = function(data) {
     for (var i = 0; i < data.length; i++) {
       // format repo name
 
-      var repoName = data[i].name + "/" + data[i].url;
+      var repoName = data[i].url;
 
 
     // create a link for each repo
     var repoEl = document.createElement("a");
     repoEl.classList = "list-item flex-row justify-space-between align-center";
-    repoEl.setAttribute("href", "./single-repo.html?repo=" + repoName);
+    repoEl.setAttribute("href", repoName);
 
-    // create a span element to hold repository name
+    // create a li element to hold repository name
+    repoContainerEl.classList = "box field is-vertical is-size-12 mr-6 ml-6"
+
     var titleEl = document.createElement("li");
     titleEl.textContent = repoName;
 
     // append to container
-    repoEl.appendChild(titleEl);
-
-
-
+    repoEl.appendChild(titleEl)
     // append container to the dom
     repoContainerEl.appendChild(repoEl);
   }
@@ -182,3 +181,7 @@ var resetForm = function (){
   nameInputEl.addEventListener("click", formSubmitHandler);
   nameInputEl.addEventListener("click", formTopFive);
 
+// add event listeners to form and button container//
+userFormEl.addEventListener("click", artistName);
+nameInputEl.addEventListener("click", formSubmitHandler);
+clearSearch.addEventListener("click", resetForm);
