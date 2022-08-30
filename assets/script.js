@@ -5,7 +5,7 @@ var repoContainerEltwo = document.querySelector("#list-container")
 var repoSearchTerm = document.querySelector("#music-search-term");
 var clearSearch = document.querySelector("#clearBtn");
 var userInputEl = document.querySelector("#input-data");
-var napster = document.querySelector("#tracks-template");
+var napsterInput = document.querySelector("#tracks-template");
 
 var formSubmitHandler = function (event) {
   // prevent page from refreshing
@@ -119,10 +119,10 @@ function saveMusic(songUrl) {
     localStorage.setItem('playlist', JSON.stringify(playlist));
   };
 
-
+//////////////////////////////////////////////////////////////////////////////////////////////
   // format the napster api url
   var napsterFive = function(type) {
-  var napsterUrl = "https://api.napster.com/v2.2/artists/search/" + type +"/top?pretty=true&limit=5&offsett=5";
+  var napsterUrl = "https://api.napster.com/v2.2/"  + type + "search/top?pretty=true&limit=5&offsett=5";
   // ?limit=5&type=5&apikey=MWVlYWFlNDQtMzc5NS00M2U3LWI3MTktNTUxMzU3OGY1N2E1");
 
     fetch(napsterUrl)
@@ -132,7 +132,7 @@ function saveMusic(songUrl) {
         console.log(response);
         response.json().then(function (type) {
           console.log(type);
-          napsterFiveList(response.type);
+          napsterFiveList(type.type);
         });
       } else {
         alert('Artist Not Found');
@@ -177,6 +177,7 @@ console.log(type);
     repoContainerEltwo.appendChild(repoEltwo);
   }
 };
+napsterFive();
 var resetForm = function () {
   location.reload()
 }
@@ -189,6 +190,7 @@ var resetForm = function () {
 userFormEl.addEventListener("click", artistName);
 clearSearch.addEventListener("click", resetForm);
 nameInputEl.addEventListener("click", formSubmitHandler);
+
 
 
 
