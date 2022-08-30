@@ -37,7 +37,7 @@ var getUserRepos = function (data) {
 
   var apiUrl = "https://api.mixcloud.com/search/?q=" + data + "&limit=5&type=cloudcast";
 
-
+  
   // make a get request to url
   fetch(apiUrl)
     .then(function (response) {
@@ -94,19 +94,23 @@ var displayRepos = function (data) {
 var resetForm = function () {
   location.reload()
 }
-
+// Napster.init({
+//  consumerKey: 'MWVlYWFlNDQtMzc5NS00M2U3LWI3MTktNTUxMzU3OGY1N2E1', 
+//  isHTML5Compatible: true 
+// });
   // format the napster api url
-  var getTopTracks= function(id){
-  var topTracksUrl = ("https://api.napster.com/v2.2/artist/" + type + "/top?limit=5&offset=5&apikey=MWVlYWFlNDQtMzc5NS00M2U3LWI3MTktNTUxMzU3OGY1N2E1");
+  var Napster= getTopTracks;
+  var getTopTracks= function(event){
+  var topTracksUrl = ("https://api.napster.com/v2.2/search/artists/"+ data + "/top?limit=5&type=5&apikey=MWVlYWFlNDQtMzc5NS00M2U3LWI3MTktNTUxMzU3OGY1N2E1");
 
     fetch(topTracksUrl)
     .then(function (response) {
       // request was successful
       if (response.ok) {
         console.log(response);
-        response.json().then(function (type) {
-          console.log(type);
-          displayTopTracks(type.type);
+        response.json().then(function (data) {
+          console.log(data);
+          displayTopTracks(data.data);
         });
       } else {
         alert('Artist Not Found');
@@ -120,10 +124,10 @@ var displayTopTracks = function (type) {
   // check if api returned any repos
 
   if (type.length === 0) {
-    repoContainerEltwo.textContent = "No playlist found.";
+    repoContainerEltwo.textContent = "No artist found.";
     return;
   }
-
+console.log(topTracksUrl);
   //repoSearchTerm.textContent = SearchTerm;
 
   // loop over repos
@@ -139,7 +143,7 @@ var displayTopTracks = function (type) {
     repoEltwo.setAttribute("href", trackName);
 
     // create a li element to hold tracks name
-    repoContainerEl.classList = "box field is-vertical is-size-12 mr-6 ml-6"
+    repoContainerEltwo.classList = "box field is-vertical is-size-12 mr-6 ml-6"
 
     var titleEltwo = document.createElement("li");
     titleEltwo.textContent = trackName;
@@ -147,7 +151,7 @@ var displayTopTracks = function (type) {
     // append to container
     repoEltwo.appendChild(titleEltwo)
     // append container to the dom
-    repoContainerEl.appendChild(repoEltwo);
+    repoContainerEltwo.appendChild(repoEltwo);
   }
 };
 var resetForm = function () {
