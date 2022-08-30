@@ -5,7 +5,7 @@ var repoSearchTerm = document.querySelector("#music-search-term");
 var clearSearch = document.querySelector("#clearBtn");
 var userInputEl = document.querySelector("#input-data");
 
-var formSubmitHandler = function(event) {
+var formSubmitHandler = function (event) {
   // prevent page from refreshing
   event.preventDefault();
 
@@ -24,25 +24,25 @@ var formSubmitHandler = function(event) {
 };
 
 function artistName(event) {
-event.preventDefault();
-var userInputEl = document.querySelector("input[name='artist']").value;
-console.log(userInputEl);
+  event.preventDefault();
+  var userInputEl = document.querySelector("input[name='artist']").value;
+  console.log(userInputEl);
 }
 
 
-var getUserRepos = function(data) {
+var getUserRepos = function (data) {
   // format the api url
-  
-    var apiUrl = "https://api.mixcloud.com/search/?q=" + data + "&limit=5&type=cloudcast";
- 
+
+  var apiUrl = "https://api.mixcloud.com/search/?q=" + data + "&limit=5&type=cloudcast";
+
 
   // make a get request to url
   fetch(apiUrl)
-    .then(function(response) {
+    .then(function (response) {
       // request was successful
       if (response.ok) {
         console.log(response);
-        response.json().then(function(data) {
+        response.json().then(function (data) {
           console.log(data);
           displayRepos(data.data);
         });
@@ -50,35 +50,34 @@ var getUserRepos = function(data) {
         alert('Artist Not Found');
       }
     })
-    .catch(function(error) {
+    .catch(function (error) {
       alert("Unable to connect");
     });
 };
 
-var displayRepos = function(data) {
-    // check if api returned any repos
+var displayRepos = function (data) {
+  // check if api returned any repos
 
-    if (data.length === 0) {
-      repoContainerEl.textContent = "No playlist found.";
-      return;
-    }
-  
-    //repoSearchTerm.textContent = SearchTerm;
-  
-    // loop over repos
-    for (var i = 0; i < data.length; i++) {
-      // format repo name
+  if (data.length === 0) {
+    repoContainerEl.textContent = "No playlist found.";
+    return;
+  }
 
-      var repoName = data[i].url;
+  //repoSearchTerm.textContent = SearchTerm;
 
+  // loop over repos
+  for (var i = 0; i < data.length; i++) {
+    // format repo name
+
+
+    var repoName = data[i].url;
 
     // create a link for each repo
     var repoEl = document.createElement("a");
     repoEl.classList = "list-item flex-row justify-space-between align-center";
     repoEl.setAttribute("href", repoName);
-
-    // create a li element to hold repository name
-    repoContainerEl.classList = "box field is-vertical is-size-12 mr-6 ml-6"
+    repoEl.setAttribute("target", "_blank")
+    // create a span element to hold repository name
 
     var titleEl = document.createElement("li");
     titleEl.textContent = repoName;
@@ -87,14 +86,39 @@ var displayRepos = function(data) {
     repoEl.appendChild(titleEl)
     // append container to the dom
     repoContainerEl.appendChild(repoEl);
+    repoEl.addEventListener("click", function () {
+      saveMusic(repoName);
+    });
+    //saveMusic();
   }
 };
 
-var resetForm = function (){
-    repoContainerEl.remove()
+
+var resetForm = function () {
+  location.reload()
 }
+
+var saveMusic = function (songUrl) {
+  var arrayFromLocalStorage = localStorage.getItem("playlist");
+  //if statement is going to go here 
+  if (arrayFromLocalStorage)   {
+   //var newArray = arrayFromLocalStorage.push(songUrl)
+    console.log(arrayFromLocalStorage);
+   //localStorage.setItem("playlist", newArray)
+   arrayFromLocalStorage.push(songUrl)
+   localStorage.setItem("playlist",arrayFromLocalStorage)
+  }
+  else {
+    var firstSong = [songUrl];
+    localStorage.setItem("playlist",firstSong)
+  }
+
+}
+
 
 // add event listeners to form and button container//
 userFormEl.addEventListener("click", artistName);
-nameInputEl.addEventListener("click", formSubmitHandler);
 clearSearch.addEventListener("click", resetForm);
+nameInputEl.addEventListener("click", formSubmitHandler);
+
+
