@@ -1,11 +1,11 @@
 var userFormEl = document.querySelector("#form");
 var nameInputEl = document.querySelector("#submitBtn");
 var repoContainerEl = document.querySelector("#list-container");
-var repoContainerEltwo = document.querySelector("#list-container")
+var repoContainerEltwo = document.querySelector("#tracks-template")
 var repoSearchTerm = document.querySelector("#music-search-term");
 var clearSearch = document.querySelector("#clearBtn");
 var userInputEl = document.querySelector("#input-data");
-var formTopFive = document.querySelector("#tracks-template");
+var napsterFiveList = document.querySelector("#tracks-template");
 
 var formSubmitHandler = function (event) {
   // prevent page from refreshing
@@ -94,23 +94,19 @@ var displayRepos = function (data) {
 var resetForm = function () {
   location.reload()
 }
-// Napster.init({
-//  consumerKey: 'MWVlYWFlNDQtMzc5NS00M2U3LWI3MTktNTUxMzU3OGY1N2E1', 
-//  isHTML5Compatible: true 
-// });
   // format the napster api url
-  var Napster= getTopTracks;
-  var getTopTracks= function(event){
-  var topTracksUrl = ("https://api.napster.com/v2.2/search/artists/"+ data + "/top?limit=5&type=5&apikey=MWVlYWFlNDQtMzc5NS00M2U3LWI3MTktNTUxMzU3OGY1N2E1");
+  var napsterFive = function(type) {
+  var napsterUrl = "https://api.napster.com/v2.2/artists/search/" + type +"/top?pretty=true&limit=5&offsett=5";
+  // ?limit=5&type=5&apikey=MWVlYWFlNDQtMzc5NS00M2U3LWI3MTktNTUxMzU3OGY1N2E1");
 
-    fetch(topTracksUrl)
+    fetch(napsterUrl)
     .then(function (response) {
       // request was successful
       if (response.ok) {
         console.log(response);
-        response.json().then(function (data) {
-          console.log(data);
-          displayTopTracks(data.data);
+        response.json().then(function (type) {
+          console.log(type);
+          displayTopTracks(type.type);
         });
       } else {
         alert('Artist Not Found');
@@ -119,7 +115,8 @@ var resetForm = function () {
     .catch(function (error) {
       alert("Unable to connect");
     });
-};
+  };
+
 var displayTopTracks = function (type) {
   // check if api returned any repos
 
@@ -127,26 +124,26 @@ var displayTopTracks = function (type) {
     repoContainerEltwo.textContent = "No artist found.";
     return;
   }
-console.log(topTracksUrl);
+console.log(type);
   //repoSearchTerm.textContent = SearchTerm;
 
   // loop over repos
   for (var i = 0; i < type.length; i++) {
     // format repo name
 
-    var trackName = type[i].url;
+    var napRepo = type[i].url;
 
 
     // create a link for each repo
     var repoEltwo = document.createElement("a");
     repoEltwo.classList = "list-item flex-row justify-space-between align-center";
-    repoEltwo.setAttribute("href", trackName);
+    repoEltwo.setAttribute("href", napRepo);
 
     // create a li element to hold tracks name
     repoContainerEltwo.classList = "box field is-vertical is-size-12 mr-6 ml-6"
 
     var titleEltwo = document.createElement("li");
-    titleEltwo.textContent = trackName;
+    titleEltwo.textContent = napRepo;
 
     // append to container
     repoEltwo.appendChild(titleEltwo)
@@ -166,4 +163,21 @@ var resetForm = function () {
 userFormEl.addEventListener("click", artistName);
 clearSearch.addEventListener("click", resetForm);
 nameInputEl.addEventListener("click", formSubmitHandler);
-formTopFive.addEventListener("click", getTopTracks);
+napsterFiveList.addEventListener("click", napsterFive);
+
+//  var responseTopFive= fetch(topTracksUrl)
+//.then(function (responseTopFive) {
+  // request was successful
+  //if (responseTopFive.ok) {
+    //console.log(responseTopFive);
+    //responseTopFive.json().then(function (displayTopTracks) {
+      //console.log(responseTopFive);
+      //displayTopTracks(responseTopFive);
+    //});
+ // } else {
+//    alert('Artist Not Found');
+ // }
+//})
+//.catch(function (error) {
+  //alert("Unable to connect");
+//});
