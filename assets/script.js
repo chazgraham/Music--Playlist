@@ -29,12 +29,10 @@ function artistName(event) {
   console.log(userInputEl);
 }
 
-
 var getUserRepos = function (data) {
   // format the api url
 
   var apiUrl = "https://api.mixcloud.com/search/?q=" + data + "&limit=5&type=cloudcast";
-
 
   // make a get request to url
   fetch(apiUrl)
@@ -63,13 +61,9 @@ var displayRepos = function (data) {
     return;
   }
 
-  //repoSearchTerm.textContent = SearchTerm;
-
   // loop over repos
   for (var i = 0; i < data.length; i++) {
     // format repo name
-
-
     var repoName = data[i].url;
 
     // create a link for each repo
@@ -77,10 +71,17 @@ var displayRepos = function (data) {
     repoEl.classList = "list-item flex-row justify-space-between align-center";
     repoEl.setAttribute("href", repoName);
     repoEl.setAttribute("target", "_blank")
-    // create a span element to hold repository name
+    
+    // create a li element to hold repository name
+ repoContainerEl.classList = "box is-vertical is-size-12 mr-6 ml-6"
 
-    var titleEl = document.createElement("li");
-    titleEl.textContent = repoName;
+ var titleEl = document.createElement("li");
+ titleEl.textContent = repoName;
+
+ // append to container
+ repoEl.appendChild(titleEl)
+ // append container to the dom
+ repoContainerEl.appendChild(repoEl);
 
     // append to container
     repoEl.appendChild(titleEl)
@@ -93,28 +94,22 @@ var displayRepos = function (data) {
   }
 };
 
-
 var resetForm = function () {
   location.reload()
 }
 
-var saveMusic = function (songUrl) {
-  var arrayFromLocalStorage = localStorage.getItem("playlist");
-  //if statement is going to go here 
-  if (arrayFromLocalStorage)   {
-   //var newArray = arrayFromLocalStorage.push(songUrl)
-    console.log(arrayFromLocalStorage);
-   //localStorage.setItem("playlist", newArray)
-   arrayFromLocalStorage.push(songUrl)
-   localStorage.setItem("playlist",arrayFromLocalStorage)
-  }
-  else {
-    var firstSong = [songUrl];
-    localStorage.setItem("playlist",firstSong)
-  }
-
+function saveMusic(songUrl)
+{
+    var playlist = [];
+    // Parse the serialized data back into an aray of objects
+    playlist = JSON.parse(localStorage.getItem('playlist')) || [];
+    // Push the new data (whether it be an object or anything else) onto the array
+    playlist.push(songUrl);
+    // Alert the array value
+    alert(playlist);  // Should be something like [Object array]
+    // Re-serialize the array back into a string and store it in localStorage
+    localStorage.setItem('playlist', JSON.stringify(playlist));
 }
-
 
 // add event listeners to form and button container//
 userFormEl.addEventListener("click", artistName);
