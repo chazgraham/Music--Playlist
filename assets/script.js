@@ -69,8 +69,8 @@ var displayRepos = function (data) {
   for (var i = 0; i < data.length; i++) {
     // format repo name
 
-    var repoName = data[i].url;
 
+    var repoName = data[i].url;
 
     // create a link for each repo
     var repoEl = document.createElement("a");
@@ -78,14 +78,12 @@ var displayRepos = function (data) {
     repoEl.setAttribute("href", repoName);
     repoEl.setAttribute("target", "_blank")
     // create a span element to hold repository name
+
     var titleEl = document.createElement("li");
     titleEl.textContent = repoName;
 
     // append to container
-    repoEl.appendChild(titleEl);
-
-
-
+    repoEl.appendChild(titleEl)
     // append container to the dom
     repoContainerEl.appendChild(repoEl);
     repoEl.addEventListener("click", function () {
@@ -121,4 +119,5 @@ var saveMusic = function (songUrl) {
 userFormEl.addEventListener("click", artistName);
 clearSearch.addEventListener("click", resetForm);
 nameInputEl.addEventListener("click", formSubmitHandler);
+
 
