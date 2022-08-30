@@ -13,10 +13,6 @@ header {
     align-items: center;
 }
 
-.form {
-    display: flex;
-}
-
 footer{
     padding: 1rem .5rem 2rem !important;
 }
@@ -30,3 +26,8 @@ li:hover {
 color:blue;
 }
 
+@media screen and (max-width: 575px) {
+    li {
+        font-size:12px;
+    }
+}

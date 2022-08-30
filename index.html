@@ -14,18 +14,17 @@
         <h1 class="title is-size-12 has-text-white has-text-centered mt-6"> Music Playlist</h1>
 
     </header>
-    <div>
+    <main>
         <section class="hero-body" id="form">
             <div>
                 <div class="form">
-                    <input class="input is-focused is-danger input-is-medium mb-6 mr-6 ml-6" id="input-data" name="artist"
+                    <input class="button is-focused is-responsive is-medium mb-6 mr-3 ml-6" id="input-data" name="artist"
                         placeholder="Band/Artist Name" />
-                    <button class="button is-focused is-normal has-text-bold is-responsive mr-6 ml-6" type="submit"
+                    <button class="button is-focused is-normal has-text-bold is-responsive mr-3 ml-6" type="submit"
                         id="submitBtn">Get Playlist</button>
                     <button class="button is-focused is-normal is-responsive mr-6 ml-2" id="clearBtn">Clear</button>
                 </div>
             </div>
-
         </section>
 
         <section class="artistTable" >
@@ -43,6 +42,10 @@
         <section id="tracks-template"></section>
     </div>
 
+        <!--this is where playlist will go-->
+        <section id="list-container"></section>
+    </main>
+
     <footer class="footer has-background-dark">
         <div class="content has-text-centered has-text-white">
           <p>
@@ -50,8 +53,16 @@
             <a href="https://github.com/munozgit85/musicPlaylist">GitHub</a>.
           </p>
         </div>
+
       </footer>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+    </footer>
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+    </script>
 
     <script src="./assets/script.js"></script>
 </body>
