@@ -89,8 +89,9 @@ var displayRepos = function(data) {
     repoContainerEl.appendChild(repoEl);
   }
 };
+
 var resetForm = function (){
-    location.reload()
+    repoContainerEl.remove()
 }
 
 // add event listeners to form and button container//
