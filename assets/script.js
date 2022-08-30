@@ -73,24 +73,24 @@ var displayRepos = function (data) {
     repoEl.setAttribute("target", "_blank")
     
     // create a li element to hold repository name
- repoContainerEl.classList = "box is-vertical is-size-12 mr-6 ml-6"
+    repoContainerEl.classList = "box is-vertical is-size-12 mr-6 ml-6"
 
- var titleEl = document.createElement("li");
- titleEl.textContent = repoName;
-
- // append to container
- repoEl.appendChild(titleEl)
- // append container to the dom
- repoContainerEl.appendChild(repoEl);
+    var titleEl = document.createElement("li");
+    titleEl.textContent = repoName;
 
     // append to container
     repoEl.appendChild(titleEl)
     // append container to the dom
     repoContainerEl.appendChild(repoEl);
-    repoEl.addEventListener("click", function () {
-      saveMusic(repoName);
-    });
-    //saveMusic();
+
+    // append to container
+    repoEl.appendChild(titleEl)
+    // append container to the dom
+    repoContainerEl.appendChild(repoEl);
+    //repoEl.addEventListener("click", function () {
+      //saveMusic(repoName);
+    //});
+    saveMusic(repoName)
   }
 };
 
@@ -98,15 +98,13 @@ var resetForm = function () {
   location.reload()
 }
 
-function saveMusic(songUrl)
+function saveMusic(data)
 {
     var playlist = [];
     // Parse the serialized data back into an aray of objects
     playlist = JSON.parse(localStorage.getItem('playlist')) || [];
     // Push the new data (whether it be an object or anything else) onto the array
-    playlist.push(songUrl);
-    // Alert the array value
-    alert(playlist);  // Should be something like [Object array]
+    playlist.push(data);
     // Re-serialize the array back into a string and store it in localStorage
     localStorage.setItem('playlist', JSON.stringify(playlist));
 }
