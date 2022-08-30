@@ -5,7 +5,7 @@ var repoContainerEltwo = document.querySelector("#list-container")
 var repoSearchTerm = document.querySelector("#music-search-term");
 var clearSearch = document.querySelector("#clearBtn");
 var userInputEl = document.querySelector("#input-data");
-var formTopFive = document.querySelector("#tracks-template");
+var napster = document.querySelector("#tracks-template");
 
 var formSubmitHandler = function (event) {
   // prevent page from refreshing
@@ -132,7 +132,7 @@ function saveMusic(songUrl) {
         console.log(response);
         response.json().then(function (type) {
           console.log(type);
-          displayTopTracks(type.type);
+          napsterFiveList(response.type);
         });
       } else {
         alert('Artist Not Found');
@@ -143,7 +143,7 @@ function saveMusic(songUrl) {
     });
   };
 
-var displayTopTracks = function (type) {
+var napsterFiveList = function (type) {
   // check if api returned any repos
 
   if (type.length === 0) {
@@ -189,7 +189,6 @@ var resetForm = function () {
 userFormEl.addEventListener("click", artistName);
 clearSearch.addEventListener("click", resetForm);
 nameInputEl.addEventListener("click", formSubmitHandler);
-napsterFiveList.addEventListener("click", napsterFive);
 
 
 
