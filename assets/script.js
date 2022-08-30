@@ -1,6 +1,7 @@
 var userFormEl = document.querySelector("#form");
 var nameInputEl = document.querySelector("#submitBtn");
 var repoContainerEl = document.querySelector("#list-container");
+var repoContainerEltwo = document.querySelector("#list-container")
 var repoSearchTerm = document.querySelector("#music-search-term");
 var clearSearch = document.querySelector("#clearBtn");
 var userInputEl = document.querySelector("#input-data");
@@ -94,18 +95,18 @@ var resetForm = function () {
   location.reload()
 }
 
-  // format the api url
+  // format the napster api url
   var getTopTracks= function(id){
-  var topTracksUrl = ("https://api.napster.com/v2.2/" + id + "/top?limit=5&offset=5&apikey=MWVlYWFlNDQtMzc5NS00M2U3LWI3MTktNTUxMzU3OGY1N2E1");
+  var topTracksUrl = ("https://api.napster.com/v2.2/artist/" + type + "/top?limit=5&offset=5&apikey=MWVlYWFlNDQtMzc5NS00M2U3LWI3MTktNTUxMzU3OGY1N2E1");
 
     fetch(topTracksUrl)
     .then(function (response) {
       // request was successful
       if (response.ok) {
         console.log(response);
-        response.json().then(function (id) {
-          console.log(id);
-          displayTopTracks(id.id);
+        response.json().then(function (type) {
+          console.log(type);
+          displayTopTracks(type.type);
         });
       } else {
         alert('Artist Not Found');
@@ -115,21 +116,21 @@ var resetForm = function () {
       alert("Unable to connect");
     });
 };
-var displayTopTracks = function (id) {
+var displayTopTracks = function (type) {
   // check if api returned any repos
 
-  if (id.length === 0) {
-    repoContainerEl.textContent = "No playlist found.";
+  if (type.length === 0) {
+    repoContainerEltwo.textContent = "No playlist found.";
     return;
   }
 
   //repoSearchTerm.textContent = SearchTerm;
 
   // loop over repos
-  for (var i = 0; i < id.length; i++) {
+  for (var i = 0; i < type.length; i++) {
     // format repo name
 
-    var trackName = id[i].url;
+    var trackName = type[i].url;
 
 
     // create a link for each repo
