@@ -5,7 +5,6 @@ var repoContainerEltwo = document.querySelector("#list-container")
 var repoSearchTerm = document.querySelector("#music-search-term");
 var clearSearch = document.querySelector("#clearBtn");
 var userInputEl = document.querySelector("#input-data");
-var napsterInput = document.querySelector("#tracks-template");
 
 var formSubmitHandler = function (event) {
   // prevent page from refreshing
@@ -157,6 +156,7 @@ var displayTracks = function (tracks) {
     topFiveEl.classList = "list-item flex-row justify-space-between align-center";
     topFiveEl.setAttribute("href", "./single-repo.html?repo=" + napRepo);
     // create a span element to hold repository name
+
     var napTitleEl = document.createElement("span");
     napTitleEl.textContent = napRepo;
     // append to container
