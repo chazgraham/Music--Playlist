@@ -30,4 +30,7 @@ color:blue;
     li {
         font-size:12px;
     }
+    #savedSongs {
+        margin-top: 15px;
+    }
 }

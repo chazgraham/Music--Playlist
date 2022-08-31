@@ -22,10 +22,27 @@
                         placeholder="Band/Artist Name" />
                     <button class="button is-focused is-normal has-text-bold is-responsive mr-3 ml-6" type="submit"
                         id="submitBtn">Get Playlist</button>
-                    <button class="button is-focused is-normal is-responsive mr-6 ml-2" id="clearBtn">Clear</button>
+                    <button class="button is-focused is-normal is-responsive mr-3 ml-2" id="clearBtn">Clear</button>
+                    <button class="button is-focused is-normal is-responsive" id="savedSongs">Saved Songs</button>
                 </div>
+                
             </div>
         </section>
+
+        <section class="artistTable" >
+
+        </section>
+<!--this is where playlist will go-->
+        <section>
+            <h2 class="subtitle">Playlist<span id="music-search-term"></span></h2>
+            <div>
+                <ol class="box field is-vertical is-size-12 mr-6 ml-6" id="list-container"> </ol>
+            </div>
+        </section>
+
+        <section id="list-container"></section>
+        <section id="tracks-template"></section>
+    </div>
 
         <!--this is where playlist will go-->
         <section id="list-container"></section>
@@ -38,13 +55,18 @@
             <a href="https://github.com/munozgit85/musicPlaylist">GitHub</a>.
           </p>
         </div>
+
+      </footer>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
     </footer>
     <script
       type="text/javascript"
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
     </script>
+
     <script src="./assets/script.js"></script>
 </body>
 
 </html>
-

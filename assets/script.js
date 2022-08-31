@@ -1,9 +1,12 @@
 var userFormEl = document.querySelector("#form");
 var nameInputEl = document.querySelector("#submitBtn");
 var repoContainerEl = document.querySelector("#list-container");
+var repoContainerEltwo = document.querySelector("#list-container")
 var repoSearchTerm = document.querySelector("#music-search-term");
 var clearSearch = document.querySelector("#clearBtn");
 var userInputEl = document.querySelector("#input-data");
+var searchedSongList = document.querySelector("#savedSongs")
+
 
 var formSubmitHandler = function (event) {
   // prevent page from refreshing
@@ -61,37 +64,112 @@ var displayRepos = function (data) {
     return;
   }
 
+  //repoSearchTerm.textContent = SearchTerm;
+
   // loop over repos
   for (var i = 0; i < data.length; i++) {
     // format repo name
+
     var repoName = data[i].url;
+    // loop over repos
+    for (var i = 0; i < data.length; i++) {
+      // format repo name
+      var repoName = data[i].url;
 
+      // create a link for each repo
+      var repoEl = document.createElement("a");
+      repoEl.classList = "list-item flex-row justify-space-between align-center";
+      repoEl.setAttribute("href", repoName);
+      repoEl.setAttribute("target", "_blank")
+
+      // create a li element to hold repository name
+      repoContainerEl.classList = "box is-vertical is-size-12 mr-6 ml-6"
+
+      var titleEl = document.createElement("li");
+      titleEl.textContent = repoName;
+
+      // append to container
+      repoEl.appendChild(titleEl)
+      // append container to the dom
+      repoContainerEl.appendChild(repoEl);
+
+      // append to container
+      repoEl.appendChild(titleEl)
+      // append container to the dom
+      repoContainerEl.appendChild(repoEl);
+      repoEl.addEventListener("click", function () {
+        saveMusic(repoName);
+      });
+      //saveMusic();
+    }
+  };
+};
+  var resetForm = function () {
+    location.reload();
+  };
+
+function saveMusic(songUrl) {
+  var playlist = [];
+  // Parse the serialized data back into an aray of objects
+  playlist = JSON.parse(localStorage.getItem('playlist')) || [];
+  // Push the new data (whether it be an object or anything else) onto the array
+  playlist.push(songUrl);
+  // Alert the array value
+  alert(playlist);  // Should be something like [Object array]
+  // Re-serialize the array back into a string and store it in localStorage
+  localStorage.setItem('playlist', JSON.stringify(playlist));
+};
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+// format the napster api url
+var getUserRepos = function (tracks) {
+  // format the github api url
+  var napUrl = "https://api.napster.com/v2.2/tracks/top?limit=5&offset=5&apikey=MWVlYWFlNDQtMzc5NS00M2U3LWI3MTktNTUxMzU3OGY1N2E1";
+  // make a get request to url
+  fetch(napUrl)
+    .then(function (response) {
+      // request was successful
+      if (response.ok) {
+        console.log(response);
+        response.json().then(function (tracks) {
+          console.log(tracks);
+          displayTracks(tracks.tracks);
+        });
+      } else {
+        alert('Artist Not Found');
+      }
+    })
+    .catch(function (error) {
+      alert("Unable to connect");
+    });
+};
+var displayTracks = function (tracks) {
+  // check if api returned any repos
+ // if (track.length === 0) {
+  //  repoContainerEl.textContent = "No playlist found.";
+  //  return;
+ // }
+  // loop over repos
+  for (var i = 0; i < tracks.length; i++) {
+    // format repo name
+    var napRepo = tracks[i].href;
     // create a link for each repo
-    var repoEl = document.createElement("a");
-    repoEl.classList = "list-item flex-row justify-space-between align-center";
-    repoEl.setAttribute("href", repoName);
-    repoEl.setAttribute("target", "_blank")
-    
-    // create a li element to hold repository name
-    repoContainerEl.classList = "box is-vertical is-size-12 mr-6 ml-6"
-
-    var titleEl = document.createElement("li");
-    titleEl.textContent = repoName;
-
+    var topFiveEl = document.createElement("a");
+    topFiveEl.classList = "list-item flex-row justify-space-between align-center";
+    topFiveEl.setAttribute("href", "./single-repo.html?repo=" + napRepo);
+    // create a span element to hold repository name
+    var napTitleEl = document.createElement("span");
+    napTitleEl.textContent = napRepo;
     // append to container
-    repoEl.appendChild(titleEl)
-    // append container to the dom
-    repoContainerEl.appendChild(repoEl);
-
+    topFiveEl.appendChild(napTitleEl);
+    // create a status element
+    var napStatusEl = document.createElement("span");
+    napStatusEl.classList = "flex-row align-center";
     // append to container
-    repoEl.appendChild(titleEl)
-    // append container to the dom
-    repoContainerEl.appendChild(repoEl);
-    //repoEl.addEventListener("click", function () {
-      //saveMusic(repoName);
-    //});
-    saveMusic(repoName)
-  }
+    topFiveEl.appendChild(napStatusEl);
+    repoContainerEl.appendChild(topFiveEl);
+  };
+  console.log(napRepo);
 };
 
 var resetForm = function () {
@@ -109,9 +187,31 @@ function saveMusic(data)
     localStorage.setItem('playlist', JSON.stringify(playlist));
 }
 
+var loadUserSong = function() {
+  var savedUserSong = localStorage.getItem("playlist");
+
+  // parse into array of objects
+  songs = JSON.parse(savedUserSong);
+  console.log(songs);
+
+  var songs = document.createElement("a");
+  songs.setAttribute("href", savedUserSong);
+  songs.setAttribute("target", "_blank")
+
+  var savedSong = document.createElement("li");
+  savedSong.className = "box is-vertical is-size-12 mr-6 ml-6";
+  
+  var songData = document.createElement("li");
+  songData.className = "playlist";
+  songData.innerText = songs
+      
+  savedSong.appendChild(songData);
+  repoContainerEl.appendChild(savedSong);
+     
+};
+
 // add event listeners to form and button container//
 userFormEl.addEventListener("click", artistName);
 clearSearch.addEventListener("click", resetForm);
 nameInputEl.addEventListener("click", formSubmitHandler);
-
-
+searchedSongList.addEventListener("click", loadUserSong);
