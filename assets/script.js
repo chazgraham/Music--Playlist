@@ -1,11 +1,11 @@
 var userFormEl = document.querySelector("#form");
 var nameInputEl = document.querySelector("#submitBtn");
 var repoContainerEl = document.querySelector("#list-container");
-var repoContainerEltwo = document.querySelector("#tracks-template")
 var repoSearchTerm = document.querySelector("#music-search-term");
 var clearSearch = document.querySelector("#clearBtn");
 var userInputEl = document.querySelector("#input-data");
-var napsterFiveList = document.querySelector("#tracks-template");
+var searchedSongList = document.querySelector("#savedSongs");
+var topFive = document.querySelector("#top-5");
 
 var formSubmitHandler = function (event) {
   // prevent page from refreshing
@@ -28,16 +28,13 @@ var formSubmitHandler = function (event) {
 function artistName(event) {
   event.preventDefault();
   var userInputEl = document.querySelector("input[name='artist']").value;
-  console.log(userInputEl);
 }
-
 
 var getUserRepos = function (data) {
   // format the api url
 
   var apiUrl = "https://api.mixcloud.com/search/?q=" + data + "&limit=5&type=cloudcast";
 
-  
   // make a get request to url
   fetch(apiUrl)
     .then(function (response) {
@@ -65,48 +62,48 @@ var displayRepos = function (data) {
     return;
   }
 
-  //repoSearchTerm.textContent = SearchTerm;
-
   // loop over repos
   for (var i = 0; i < data.length; i++) {
     // format repo name
-
     var repoName = data[i].url;
-
 
     // create a link for each repo
     var repoEl = document.createElement("a");
     repoEl.classList = "list-item flex-row justify-space-between align-center";
     repoEl.setAttribute("href", repoName);
-
+    repoEl.setAttribute("target", "_blank");
+    
     // create a li element to hold repository name
-    repoContainerEl.classList = "box field is-vertical is-size-12 mr-6 ml-6"
+    repoContainerEl.classList = "box is-vertical is-size-12 mr-6 ml-6"
 
     var titleEl = document.createElement("li");
     titleEl.textContent = repoName;
 
     // append to container
-    repoEl.appendChild(titleEl)
+    repoEl.appendChild(titleEl);
     // append container to the dom
     repoContainerEl.appendChild(repoEl);
+
+    // append to container
+    repoEl.appendChild(titleEl);
+    // append container to the dom
+    repoContainerEl.appendChild(repoEl);
+    saveMusic(repoName)
   }
 };
-var resetForm = function () {
-  location.reload()
-}
-  // format the napster api url
-  var napsterFive = function(type) {
-  var napsterUrl = "https://api.napster.com/v2.2/artists/search/" + type +"/top?pretty=true&limit=5&offsett=5";
-  // ?limit=5&type=5&apikey=MWVlYWFlNDQtMzc5NS00M2U3LWI3MTktNTUxMzU3OGY1N2E1");
 
-    fetch(napsterUrl)
+var getNapRepos = function (tracks) {
+  // format the github api url
+  var napUrl = "https://api.napster.com/v2.2/artists/Art.28463069/tracks/top?limit=5&offset=5&apikey=MWVlYWFlNDQtMzc5NS00M2U3LWI3MTktNTUxMzU3OGY1N2E1";
+  // make a get request to url
+  fetch(napUrl)
     .then(function (response) {
       // request was successful
       if (response.ok) {
         console.log(response);
-        response.json().then(function (type) {
-          console.log(type);
-          displayTopTracks(type.type);
+        response.json().then(function (tracks) {
+          console.log(tracks);
+          displayTracks(tracks.tracks);
         });
       } else {
         alert('Artist Not Found');
@@ -115,69 +112,74 @@ var resetForm = function () {
     .catch(function (error) {
       alert("Unable to connect");
     });
-  };
-
-var displayTopTracks = function (type) {
-  // check if api returned any repos
-
-  if (type.length === 0) {
-    repoContainerEltwo.textContent = "No artist found.";
-    return;
-  }
-console.log(type);
-  //repoSearchTerm.textContent = SearchTerm;
-
-  // loop over repos
-  for (var i = 0; i < type.length; i++) {
-    // format repo name
-
-    var napRepo = type[i].url;
-
-
-    // create a link for each repo
-    var repoEltwo = document.createElement("a");
-    repoEltwo.classList = "list-item flex-row justify-space-between align-center";
-    repoEltwo.setAttribute("href", napRepo);
-
-    // create a li element to hold tracks name
-    repoContainerEltwo.classList = "box field is-vertical is-size-12 mr-6 ml-6"
-
-    var titleEltwo = document.createElement("li");
-    titleEltwo.textContent = napRepo;
-
-    // append to container
-    repoEltwo.appendChild(titleEltwo)
-    // append container to the dom
-    repoContainerEltwo.appendChild(repoEltwo);
-  }
 };
+var displayTracks = function (tracks) {
+ 
+  // loop over repos
+  for (var i = 0; i < tracks.length; i++) {
+    // format repo name
+    var napRepo = tracks[i].href;
+    // create a link for each repo
+    var topFiveEl = document.createElement("a");
+    topFiveEl.classList = "list-item flex-row justify-space-between align-center";
+    topFiveEl.setAttribute("href", napRepo);
+    
+    // create a span element to hold repository name
+    repoContainerEl.classList = "box is-vertical is-size-12 mr-6 ml-6"
+
+    var napTitleEl = document.createElement("li");
+    napTitleEl.textContent = napRepo;
+    // append to container
+    topFiveEl.appendChild(napTitleEl);
+    
+    // append to container
+    topFiveEl.appendChild(napTitleEl);
+    repoContainerEl.appendChild(topFiveEl);
+  };
+  console.log(napRepo);
+};
+
 var resetForm = function () {
   location.reload()
 }
 
+function saveMusic(data)
+{
+    var playlist = [];
+    // Parse the serialized data back into an aray of objects
+    playlist = JSON.parse(localStorage.getItem('playlist')) || [];
+    // Push the new data (whether it be an object or anything else) onto the array
+    playlist.push(data);
+    // Re-serialize the array back into a string and store it in localStorage
+    localStorage.setItem('playlist', JSON.stringify(playlist));
+}
 
+var loadUserSong = function() {
+  var savedUserSong = localStorage.getItem("playlist");
 
-  // var napUrl = "https://api.napster.com/v2.2/artists/top?limit=5&offset=5&apikey=MWVlYWFlNDQtMzc5NS00M2U3LWI3MTktNTUxMzU3OGY1N2E1";
+  // parse into array of objects
+  songs = JSON.parse(savedUserSong);
+  console.log(songs);
+
+  var songs = document.createElement("a");
+  songs.setAttribute("href", savedUserSong);
+  songs.setAttribute("target", "_blank")
+
+  var savedSong = document.createElement("li");
+  savedSong.className = "box is-vertical is-size-12 mr-6 ml-6";
+  
+  var songData = document.createElement("li");
+  songData.className = "playlist";
+  songData.innerText = songs
+      
+  savedSong.appendChild(songData);
+  repoContainerEl.appendChild(savedSong);
+     
+};
 
 // add event listeners to form and button container//
 userFormEl.addEventListener("click", artistName);
 clearSearch.addEventListener("click", resetForm);
 nameInputEl.addEventListener("click", formSubmitHandler);
-napsterFiveList.addEventListener("click", napsterFive);
-
-//  var responseTopFive= fetch(topTracksUrl)
-//.then(function (responseTopFive) {
-  // request was successful
-  //if (responseTopFive.ok) {
-    //console.log(responseTopFive);
-    //responseTopFive.json().then(function (displayTopTracks) {
-      //console.log(responseTopFive);
-      //displayTopTracks(responseTopFive);
-    //});
- // } else {
-//    alert('Artist Not Found');
- // }
-//})
-//.catch(function (error) {
-  //alert("Unable to connect");
-//});
+searchedSongList.addEventListener("click", loadUserSong);
+topFive.addEventListener("click", getNapRepos)

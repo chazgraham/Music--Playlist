@@ -1,21 +1,21 @@
-## Music Playlist Creator
+# Music Playlist
 
-## Authors: Racquel Munoz, Chaz Graham, Jesse Van Winkle
+## Purpose
+An application that allows the user to search for songs by their favorite artists.
 
-# User Story Criteria
-When the user visits our page.
+## Built With
+*HTML
+*CSS/Bulma
+*javaScript
 
-Then they fill out a form with a list of their favorite artist names.
+## WEbsite
+https://chazgraham.github.io/Music--Playlist/
 
-When the form is complete.
+## Screenshots
+![](./assets/images/musicPlaylist%201.jpg)
+![](./assets/images/musicPlaylist%202.jpg)
 
-Then the users choices are sent to third-party APIs to gather playlists from their websites.
-
-When playlist is generated.
-
-Then playlist is returned to user with a list of songs that can be stored on users browser.
-
-
+## Contribution
+By Chaz, Racquel, and Jesse
 
 
-## Screenshot of Project
