@@ -4,6 +4,7 @@ var repoContainerEl = document.querySelector("#list-container");
 var repoSearchTerm = document.querySelector("#music-search-term");
 var clearSearch = document.querySelector("#clearBtn");
 var userInputEl = document.querySelector("#input-data");
+var searchedSongList = document.querySelector("#savedSongs")
 
 var formSubmitHandler = function (event) {
   // prevent page from refreshing
@@ -109,9 +110,31 @@ function saveMusic(data)
     localStorage.setItem('playlist', JSON.stringify(playlist));
 }
 
+var loadUserSong = function() {
+  var savedUserSong = localStorage.getItem("playlist");
+
+  // parse into array of objects
+  songs = JSON.parse(savedUserSong);
+  console.log(songs);
+
+  var songs = document.createElement("a");
+  songs.setAttribute("href", savedUserSong);
+  songs.setAttribute("target", "_blank")
+
+  var savedSong = document.createElement("li");
+  savedSong.className = "box is-vertical is-size-12 mr-6 ml-6";
+  
+  var songData = document.createElement("li");
+  songData.className = "playlist";
+  songData.innerText = songs
+      
+  savedSong.appendChild(songData);
+  repoContainerEl.appendChild(savedSong);
+     
+};
+
 // add event listeners to form and button container//
 userFormEl.addEventListener("click", artistName);
 clearSearch.addEventListener("click", resetForm);
 nameInputEl.addEventListener("click", formSubmitHandler);
-
-
+searchedSongList.addEventListener("click", loadUserSong);
