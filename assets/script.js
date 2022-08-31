@@ -125,6 +125,8 @@ var displayTracks = function (tracks) {
     topFiveEl.setAttribute("href", napRepo);
     
     // create a span element to hold repository name
+
+    var napTitleEl = document.createElement("span");
     repoContainerEl.classList = "box is-vertical is-size-12 mr-6 ml-6"
 
     var napTitleEl = document.createElement("li");
