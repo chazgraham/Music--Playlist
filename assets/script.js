@@ -5,7 +5,8 @@ var repoContainerEltwo = document.querySelector("#list-container")
 var repoSearchTerm = document.querySelector("#music-search-term");
 var clearSearch = document.querySelector("#clearBtn");
 var userInputEl = document.querySelector("#input-data");
-var napsterInput = document.querySelector("#tracks-template");
+var searchedSongList = document.querySelector("#savedSongs")
+
 
 var formSubmitHandler = function (event) {
   // prevent page from refreshing
@@ -171,9 +172,46 @@ var displayTracks = function (tracks) {
   console.log(napRepo);
 };
 
-    // var napUrl = "https://api.napster.com/v2.2/artists/top?limit=5&offset=5&apikey=MWVlYWFlNDQtMzc5NS00M2U3LWI3MTktNTUxMzU3OGY1N2E1";
+var resetForm = function () {
+  location.reload()
+}
 
-    // add event listeners to form and button container//
-    userFormEl.addEventListener("click", artistName);
-    clearSearch.addEventListener("click", resetForm);
-    nameInputEl.addEventListener("click", formSubmitHandler);
+function saveMusic(data)
+{
+    var playlist = [];
+    // Parse the serialized data back into an aray of objects
+    playlist = JSON.parse(localStorage.getItem('playlist')) || [];
+    // Push the new data (whether it be an object or anything else) onto the array
+    playlist.push(data);
+    // Re-serialize the array back into a string and store it in localStorage
+    localStorage.setItem('playlist', JSON.stringify(playlist));
+}
+
+var loadUserSong = function() {
+  var savedUserSong = localStorage.getItem("playlist");
+
+  // parse into array of objects
+  songs = JSON.parse(savedUserSong);
+  console.log(songs);
+
+  var songs = document.createElement("a");
+  songs.setAttribute("href", savedUserSong);
+  songs.setAttribute("target", "_blank")
+
+  var savedSong = document.createElement("li");
+  savedSong.className = "box is-vertical is-size-12 mr-6 ml-6";
+  
+  var songData = document.createElement("li");
+  songData.className = "playlist";
+  songData.innerText = songs
+      
+  savedSong.appendChild(songData);
+  repoContainerEl.appendChild(savedSong);
+     
+};
+
+// add event listeners to form and button container//
+userFormEl.addEventListener("click", artistName);
+clearSearch.addEventListener("click", resetForm);
+nameInputEl.addEventListener("click", formSubmitHandler);
+searchedSongList.addEventListener("click", loadUserSong);
