@@ -46,11 +46,11 @@ var getUserRepos = function (data) {
           displayRepos(data.data);
         });
       } else {
-        alert('Artist Not Found');
+        module('Artist Not Found');
       }
     })
     .catch(function (error) {
-      alert("Unable to connect");
+      module("Unable to connect");
     });
 };
 
@@ -118,11 +118,11 @@ var displayTracks = function (tracks) {
   // loop over repos
   for (var i = 0; i < tracks.length; i++) {
     // format repo name
-    var napRepo = tracks[i].href;
+    var napRepo = tracks[i].shortcut;
     // create a link for each repo
     var topFiveEl = document.createElement("a");
     topFiveEl.classList = "list-item flex-row justify-space-between align-center";
-    topFiveEl.setAttribute("href", napRepo);
+    topFiveEl.setAttribute("shortcut", napRepo);
     
     // create a span element to hold repository name
 
