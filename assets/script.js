@@ -5,7 +5,7 @@ var repoSearchTerm = document.querySelector("#music-search-term");
 var clearSearch = document.querySelector("#clearBtn");
 var userInputEl = document.querySelector("#input-data");
 var searchedSongList = document.querySelector("#savedSongs");
-var topFive = document.querySelector("#top-5")
+var topFive = document.querySelector("#top-5");
 
 var formSubmitHandler = function (event) {
   // prevent page from refreshing
@@ -92,7 +92,7 @@ var displayRepos = function (data) {
   }
 };
 
-var getUserRepos = function (tracks) {
+var getNapRepos = function (tracks) {
   // format the github api url
   var napUrl = "https://api.napster.com/v2.2/artists/Art.28463069/tracks/top?limit=5&offset=5&apikey=MWVlYWFlNDQtMzc5NS00M2U3LWI3MTktNTUxMzU3OGY1N2E1";
   // make a get request to url
@@ -182,4 +182,4 @@ userFormEl.addEventListener("click", artistName);
 clearSearch.addEventListener("click", resetForm);
 nameInputEl.addEventListener("click", formSubmitHandler);
 searchedSongList.addEventListener("click", loadUserSong);
-topFive.addEventListener("click", getUserRepos)
+topFive.addEventListener("click", getNapRepos)
