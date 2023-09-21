@@ -8,6 +8,14 @@ header {
     margin-top: 50px;
 }
 
+h2 {
+    width: 100%;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 600;
+    color: white;
+}
+
 #form {
     justify-content: center;
     align-items: center;
