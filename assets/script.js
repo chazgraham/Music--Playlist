@@ -33,7 +33,7 @@ function artistName(event) {
 var getUserRepos = function (data) {
   // format the api url
 
-  var apiUrl = "https://api.mixcloud.com/search/?q=" + data + "&limit=5&type=cloudcast";
+  var apiUrl = "https://api.mixcloud.com/search/?q=" + data + "&limit=15&type=cloudcast";
 
   // make a get request to url
   fetch(apiUrl)
@@ -65,36 +65,42 @@ var displayRepos = function (data) {
   // loop over repos
   for (var i = 0; i < data.length; i++) {
     // format repo name
-    var repoName = data[i].url;
+    var repoLink = data[i].url;
+    var repoName = data[i].name;
+    var repoImage = data[i].pictures.large
+    console.log(repoImage)
 
     // create a link for each repo
     var repoEl = document.createElement("a");
+    repoEl.textContent = repoName
     repoEl.classList = "list-item flex-row justify-space-between align-center";
-    repoEl.setAttribute("href", repoName);
+    repoEl.setAttribute("href", repoLink);
     repoEl.setAttribute("target", "_blank");
+
+    var repoImg = document.createElement("img")
+    repoImg.textContent = repoImage
+    repoImg.setAttribute("src", repoImage)
     
     // create a li element to hold repository name
     repoContainerEl.classList = "box is-vertical is-size-12 mr-6 ml-6"
 
-    var titleEl = document.createElement("li");
-    titleEl.textContent = repoName;
+    var titleEl = document.createElement("div");
+    titleEl.classList = 'thumbnail'
 
     // append to container
-    repoEl.appendChild(titleEl);
-    // append container to the dom
-    repoContainerEl.appendChild(repoEl);
+    titleEl.appendChild(repoImg);
+    titleEl.appendChild(repoEl);
 
-    // append to container
-    repoEl.appendChild(titleEl);
     // append container to the dom
-    repoContainerEl.appendChild(repoEl);
+    repoContainerEl.appendChild(titleEl);
+    
     saveMusic(repoName)
   }
 };
 
 var getNapRepos = function (tracks) {
   // format the github api url
-  var napUrl = "https://api.napster.com/v2.2/artists/Art.28463069/tracks/top?limit=5&offset=5&apikey=MWVlYWFlNDQtMzc5NS00M2U3LWI3MTktNTUxMzU3OGY1N2E1";
+  var napUrl = "https://api.napster.com/v2.2/artists/Art.28463069/tracks/top?limit=15&offset=15&apikey=MWVlYWFlNDQtMzc5NS00M2U3LWI3MTktNTUxMzU3OGY1N2E1";
   // make a get request to url
   fetch(napUrl)
     .then(function (response) {
@@ -175,8 +181,7 @@ var loadUserSong = function() {
   songData.innerText = songs
       
   savedSong.appendChild(songData);
-  repoContainerEl.appendChild(savedSong);
-     
+  repoContainerEl.appendChild(savedSong);  
 };
 
 // add event listeners to form and button container//

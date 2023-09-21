@@ -13,17 +13,30 @@ header {
     align-items: center;
 }
 
+#list-container {
+    background-color: transparent;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.thumbnail {
+    max-width: 260px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
 footer{
     padding: 1rem .5rem 2rem !important;
 }
 
-li {
-margin-left:11px;
-color:black;
+img {
+    width: 200px;
+    height: 200px;
 }
 
 li:hover {
-color:blue;
+    color:blue;
 }
 
 @media screen and (max-width: 575px) {
