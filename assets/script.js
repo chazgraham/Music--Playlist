@@ -73,7 +73,7 @@ var displayRepos = function (data) {
     // create a link for each repo
     var repoEl = document.createElement("a");
     repoEl.textContent = repoName
-    repoEl.classList = "list-item flex-row justify-space-between align-center";
+    repoEl.classList = "list-item flex-row justify-space-between align-center overlay";
     repoEl.setAttribute("href", repoLink);
     repoEl.setAttribute("target", "_blank");
 
