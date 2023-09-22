@@ -83,13 +83,13 @@ var displayRepos = function (data) {
     
     var saveBtn = document.createElement('button')
     saveBtn.textContent = "Save";
-    saveBtn.setAttribute("id", i)
+    saveBtn.setAttribute("id", repoName)
     // create a li element to hold repository name
     repoContainerEl.classList = "box is-vertical is-size-12 mr-6 ml-6"
 
     var titleEl = document.createElement("div");
     titleEl.classList = 'thumbnail'
-    titleEl.setAttribute("id", i)
+    titleEl.setAttribute("id", repoName)
 
     // append to container
     titleEl.appendChild(repoImg);
@@ -100,8 +100,8 @@ var displayRepos = function (data) {
     repoContainerEl.appendChild(titleEl);
     
     //saveMusic(repoName)
-    var saveSong = document.getElementById(i)
-    saveSong.onclick = function(e) { test(e.target)}
+    var saveSong = document.getElementById(repoName)
+    saveSong.onclick = function(e) { savePlaylist(e.target)}
   }
 };
 
@@ -204,11 +204,34 @@ var resetForm = function () {
   //repoContainerEl.appendChild(savedSong);  
 //};
 
-const test = function (i) {
-  console.log(i)
-  let getSaveSong = document.getElementById(i.id)
-  console.log(getSaveSong)
+function savePlaylist(i) {
+  var newkey = i.id;
+  var keyExists = true
+
+  for(var i=0, len=localStorage.length; i<len; i++) {
+    var key = localStorage.key(i);
+    var value = localStorage[key];
+    console.log(key)
+    console.log(value)
+    console.log(newkey)
+    if(value.includes(newkey)){
+    console.log("It existsss");
+    keyExists = false
+    }
+  }
+  console.log(keyExists)
+
+  if (keyExists) {
+    var key = Math.random() + Date.now();
+    var saveSong = document.getElementById(newkey);
+    console.log(newkey)
+    localStorage.setItem(key, saveSong.outerHTML);
+  }
+else {
+    console.log("Already saved!");
+  }
 }
+
 // add event listeners to form and button container//
 userFormEl.addEventListener("click", artistName);
 clearSearch.addEventListener("click", resetForm);
