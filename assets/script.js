@@ -211,15 +211,11 @@ function savePlaylist(i) {
   for(var i=0, len=localStorage.length; i<len; i++) {
     var key = localStorage.key(i);
     var value = localStorage[key];
-    console.log(key)
-    console.log(value)
-    console.log(newkey)
     if(value.includes(newkey)){
     console.log("It existsss");
     keyExists = false
     }
   }
-  console.log(keyExists)
 
   if (keyExists) {
     var key = Math.random() + Date.now();
