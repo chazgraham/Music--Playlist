@@ -6,6 +6,7 @@ var clearSearch = document.querySelector("#clearBtn");
 var userInputEl = document.querySelector("#input-data");
 var searchedSongList = document.querySelector("#savedSongs");
 var topFive = document.querySelector("#top-5");
+var saveSong = document.getElementById("id")
 
 var formSubmitHandler = function (event) {
   // prevent page from refreshing
@@ -62,8 +63,10 @@ var displayRepos = function (data) {
     return;
   }
 
+  let count = 0;
   // loop over repos
   for (var i = 0; i < data.length; i++) {
+    count ++;
     // format repo name
     var repoLink = data[i].url;
     var repoName = data[i].name;
@@ -81,20 +84,27 @@ var displayRepos = function (data) {
     repoImg.textContent = repoImage
     repoImg.setAttribute("src", repoImage)
     
+    var saveBtn = document.createElement('button')
+    saveBtn.textContent = "Save";
+    saveBtn.id = count;
+    saveBtn.setAttribute("onclick", test(saveBtn.id))
     // create a li element to hold repository name
     repoContainerEl.classList = "box is-vertical is-size-12 mr-6 ml-6"
 
     var titleEl = document.createElement("div");
     titleEl.classList = 'thumbnail'
+    titleEl.id = count
 
     // append to container
     titleEl.appendChild(repoImg);
     titleEl.appendChild(repoEl);
+    titleEl.appendChild(saveBtn)
 
     // append container to the dom
     repoContainerEl.appendChild(titleEl);
     
     //saveMusic(repoName)
+    //saveBtn.onclick = function() { test(saveBtn.id)}
   }
 };
 
@@ -197,6 +207,9 @@ var resetForm = function () {
   //repoContainerEl.appendChild(savedSong);  
 //};
 
+const test = function (id) {
+  console.log("clicked")
+}
 // add event listeners to form and button container//
 userFormEl.addEventListener("click", artistName);
 clearSearch.addEventListener("click", resetForm);
