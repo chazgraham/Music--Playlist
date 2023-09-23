@@ -216,10 +216,9 @@ var loadUserSong = function() {
   }
 };
 
-loadUserSong()
-
 // add event listeners to form and button container//
 userFormEl.addEventListener("click", artistName);
 clearSearch.addEventListener("click", resetForm);
+searchedSongList.addEventListener("click", loadUserSong);
 nameInputEl.addEventListener("click", formSubmitHandler);
 topFive.addEventListener("click", getNapRepos)
