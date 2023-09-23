@@ -84,6 +84,7 @@ var displayRepos = function (data) {
     var saveBtn = document.createElement('button')
     saveBtn.textContent = "Save";
     saveBtn.setAttribute("id", repoName)
+    saveBtn.classList = "saveBtn"
     // create a li element to hold repository name
     repoContainerEl.classList = "box is-vertical is-size-12 mr-6 ml-6"
 
@@ -171,39 +172,6 @@ var resetForm = function () {
   location.reload()
 }
 
-//function saveMusic(data)
-//{
-    //var playlist = [];
-    // Parse the serialized data back into an aray of objects
-    //playlist = JSON.parse(localStorage.getItem('playlist')) || [];
-    // Push the new data (whether it be an object or anything else) onto the array
-    //playlist.push(data);
-    // Re-serialize the array back into a string and store it in localStorage
-    //localStorage.setItem('playlist', JSON.stringify(playlist));
-//}
-
-//var loadUserSong = function() {
-  //var savedUserSong = localStorage.getItem("playlist");
-
-  // parse into array of objects
-  //songs = JSON.parse(savedUserSong);
-  //console.log(songs);
-
-  //var songs = document.createElement("a");
-  //songs.setAttribute("href", savedUserSong);
-  //songs.setAttribute("target", "_blank")
-
-  //var savedSong = document.createElement("li");
-  //savedSong.className = "box is-vertical is-size-12 mr-6 ml-6";
-  
-  //var songData = document.createElement("li");
-  //songData.className = "playlist";
-  //songData.innerText = songs
-      
-  //savedSong.appendChild(songData);
-  //repoContainerEl.appendChild(savedSong);  
-//};
-
 function savePlaylist(i) {
   var newkey = i.id;
   var keyExists = true
@@ -220,7 +188,6 @@ function savePlaylist(i) {
   if (keyExists) {
     var key = Math.random() + Date.now();
     var saveSong = document.getElementById(newkey);
-    console.log(newkey)
     localStorage.setItem(key, saveSong.outerHTML);
   }
 else {
@@ -228,9 +195,31 @@ else {
   }
 }
 
+var loadUserSong = function() {
+  for(var i=0, len=localStorage.length; i<len; i++) {
+    var key = localStorage.key(i);
+    var testVal = localStorage.getItem(key)
+    console.log(testVal)
+    
+    let tempEl = document.createElement("div");
+    tempEl.innerHTML = testVal
+    console.log(tempEl) 
+    //tempEl.removeChild(tempEl.lastElementChild)
+   
+
+    repoContainerEl.appendChild(tempEl); 
+  }
+  let removeBtn = document.querySelectorAll(".saveBtn")
+  console.log(removeBtn)
+  for (removeBtn of removeBtn) {
+    removeBtn.remove()
+  }
+};
+
+loadUserSong()
+
 // add event listeners to form and button container//
 userFormEl.addEventListener("click", artistName);
 clearSearch.addEventListener("click", resetForm);
 nameInputEl.addEventListener("click", formSubmitHandler);
-//searchedSongList.addEventListener("click", loadUserSong);
 topFive.addEventListener("click", getNapRepos)
