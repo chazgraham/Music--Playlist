@@ -196,6 +196,7 @@ else {
 }
 
 var loadUserSong = function() {
+  repoContainerEl.innerHTML = '';
   for(var i=0, len=localStorage.length; i<len; i++) {
     var key = localStorage.key(i);
     var testVal = localStorage.getItem(key)
