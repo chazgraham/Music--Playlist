@@ -25,6 +25,7 @@ h2 {
     background-color: transparent;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .thumbnail {
@@ -50,6 +51,10 @@ h2 {
     color: white;
 }
 
+button {
+    margin: 10px 0 0 80px;
+}
+
 footer{
     padding: 1rem .5rem 2rem !important;
 }
@@ -62,6 +67,8 @@ img {
 li:hover {
     color:blue;
 }
+
+
 
 @media screen and (max-width: 575px) {
     li {

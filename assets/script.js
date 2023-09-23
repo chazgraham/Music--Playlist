@@ -81,20 +81,28 @@ var displayRepos = function (data) {
     repoImg.textContent = repoImage
     repoImg.setAttribute("src", repoImage)
     
+    var saveBtn = document.createElement('button')
+    saveBtn.textContent = "Save";
+    saveBtn.setAttribute("id", repoName)
+    saveBtn.classList = "saveBtn"
     // create a li element to hold repository name
     repoContainerEl.classList = "box is-vertical is-size-12 mr-6 ml-6"
 
     var titleEl = document.createElement("div");
     titleEl.classList = 'thumbnail'
+    titleEl.setAttribute("id", repoName)
 
     // append to container
     titleEl.appendChild(repoImg);
     titleEl.appendChild(repoEl);
+    titleEl.appendChild(saveBtn)
 
     // append container to the dom
     repoContainerEl.appendChild(titleEl);
     
     //saveMusic(repoName)
+    var saveSong = document.getElementById(repoName)
+    saveSong.onclick = function(e) { savePlaylist(e.target)}
   }
 };
 
@@ -164,42 +172,53 @@ var resetForm = function () {
   location.reload()
 }
 
-//function saveMusic(data)
-//{
-    //var playlist = [];
-    // Parse the serialized data back into an aray of objects
-    //playlist = JSON.parse(localStorage.getItem('playlist')) || [];
-    // Push the new data (whether it be an object or anything else) onto the array
-    //playlist.push(data);
-    // Re-serialize the array back into a string and store it in localStorage
-    //localStorage.setItem('playlist', JSON.stringify(playlist));
-//}
+function savePlaylist(i) {
+  var newkey = i.id;
+  var keyExists = true
 
-//var loadUserSong = function() {
-  //var savedUserSong = localStorage.getItem("playlist");
+  for(var i=0, len=localStorage.length; i<len; i++) {
+    var key = localStorage.key(i);
+    var value = localStorage[key];
+    if(value.includes(newkey)){
+    console.log("It existsss");
+    keyExists = false
+    }
+  }
 
-  // parse into array of objects
-  //songs = JSON.parse(savedUserSong);
-  //console.log(songs);
+  if (keyExists) {
+    var key = Math.random() + Date.now();
+    var saveSong = document.getElementById(newkey);
+    localStorage.setItem(key, saveSong.outerHTML);
+  }
+else {
+    console.log("Already saved!");
+  }
+}
 
-  //var songs = document.createElement("a");
-  //songs.setAttribute("href", savedUserSong);
-  //songs.setAttribute("target", "_blank")
+var loadUserSong = function() {
+  for(var i=0, len=localStorage.length; i<len; i++) {
+    var key = localStorage.key(i);
+    var testVal = localStorage.getItem(key)
+    console.log(testVal)
+    
+    let tempEl = document.createElement("div");
+    tempEl.innerHTML = testVal
+    console.log(tempEl) 
+    //tempEl.removeChild(tempEl.lastElementChild)
+   
 
-  //var savedSong = document.createElement("li");
-  //savedSong.className = "box is-vertical is-size-12 mr-6 ml-6";
-  
-  //var songData = document.createElement("li");
-  //songData.className = "playlist";
-  //songData.innerText = songs
-      
-  //savedSong.appendChild(songData);
-  //repoContainerEl.appendChild(savedSong);  
-//};
+    repoContainerEl.appendChild(tempEl); 
+  }
+  let removeBtn = document.querySelectorAll(".saveBtn")
+  console.log(removeBtn)
+  for (removeBtn of removeBtn) {
+    removeBtn.remove()
+  }
+};
 
 // add event listeners to form and button container//
 userFormEl.addEventListener("click", artistName);
 clearSearch.addEventListener("click", resetForm);
+searchedSongList.addEventListener("click", loadUserSong);
 nameInputEl.addEventListener("click", formSubmitHandler);
-//searchedSongList.addEventListener("click", loadUserSong);
 topFive.addEventListener("click", getNapRepos)
