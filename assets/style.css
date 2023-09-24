@@ -1,7 +1,15 @@
 body {
     background-image: url("../assets/images/wallp.jpeg");
     background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     min-height: 100vh;
+    position: relative;
+    padding-bottom: 72px;
+}
+
+.hero {
+    justify-content:space-evenly;
 }
 
 header {
@@ -57,6 +65,10 @@ button {
 
 footer{
     padding: 1rem .5rem 2rem !important;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 img {
