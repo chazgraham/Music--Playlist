@@ -7,6 +7,8 @@ var userInputEl = document.querySelector("#input-data");
 var searchedSongList = document.querySelector("#savedSongs");
 var topFive = document.querySelector("#top-5");
 
+//TODO Add remove song button fo saved songs
+
 var formSubmitHandler = function (event) {
   // prevent page from refreshing
   event.preventDefault();
